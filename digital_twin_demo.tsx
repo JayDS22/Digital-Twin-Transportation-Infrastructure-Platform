@@ -16,7 +16,6 @@ const DigitalTwinPlatform = () => {
   const cameraRef = useRef(null);
   const animationRef = useRef(null);
 
-  // Sample data for analytics
   const assetData = [
     { name: 'Sidewalks', detected: 3245, verified: 3180, accuracy: 98 },
     { name: 'Curb Ramps', detected: 892, verified: 821, accuracy: 92 },
@@ -57,7 +56,6 @@ const DigitalTwinPlatform = () => {
     { month: 'Jun', crashes: 11, severity: 2.2 }
   ];
 
-  // Initialize Three.js scene
   useEffect(() => {
     if (!mountRef.current || activeTab !== '3d-view') return;
 
@@ -84,7 +82,6 @@ const DigitalTwinPlatform = () => {
     mountRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
@@ -100,7 +97,6 @@ const DigitalTwinPlatform = () => {
     const hemiLight = new THREE.HemisphereLight(0x87ceeb, 0x545454, 0.3);
     scene.add(hemiLight);
 
-    // Ground plane (road network)
     const groundGeometry = new THREE.PlaneGeometry(100, 100);
     const groundMaterial = new THREE.MeshStandardMaterial({
       color: 0x2d3748,
@@ -112,7 +108,6 @@ const DigitalTwinPlatform = () => {
     ground.receiveShadow = true;
     scene.add(ground);
 
-    // Road lanes
     for (let i = -40; i <= 40; i += 20) {
       const laneGeometry = new THREE.PlaneGeometry(2, 100);
       const laneMaterial = new THREE.MeshBasicMaterial({
@@ -126,7 +121,6 @@ const DigitalTwinPlatform = () => {
       scene.add(lane);
     }
 
-    // Simulated LiDAR point cloud
     const pointsGeometry = new THREE.BufferGeometry();
     const pointsCount = 50000;
     const positions = new Float32Array(pointsCount * 3);
@@ -163,7 +157,6 @@ const DigitalTwinPlatform = () => {
     const pointCloud = new THREE.Points(pointsGeometry, pointsMaterial);
     scene.add(pointCloud);
 
-    // Infrastructure assets
     const assetPositions = [
       { pos: [10, 0, 10], type: 'sign', color: 0x3b82f6 },
       { pos: [-15, 0, 8], type: 'sign', color: 0x3b82f6 },
@@ -220,7 +213,6 @@ const DigitalTwinPlatform = () => {
       scene.add(group);
     });
 
-    // Crash markers
     const crashPositions = [
       [5, 0.5, -8],
       [-12, 0.5, 12],
@@ -252,11 +244,9 @@ const DigitalTwinPlatform = () => {
       scene.add(ring);
     });
 
-    // Grid helper
     const gridHelper = new THREE.GridHelper(100, 50, 0x334155, 0x1e293b);
     scene.add(gridHelper);
 
-    // Animation loop
     const animate = () => {
       animationRef.current = requestAnimationFrame(animate);
 
@@ -270,7 +260,6 @@ const DigitalTwinPlatform = () => {
     };
     animate();
 
-    // Handle resize
     const handleResize = () => {
       if (!mountRef.current) return;
       const width = mountRef.current.clientWidth;
@@ -310,7 +299,6 @@ const DigitalTwinPlatform = () => {
 
   return (
     <div className="w-full h-screen bg-slate-900 text-white overflow-hidden flex flex-col">
-      {/* Header */}
       <div className="bg-slate-800 border-b border-slate-700 px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -339,7 +327,6 @@ const DigitalTwinPlatform = () => {
         </div>
       </div>
 
-      {/* Navigation */}
       <div className="bg-slate-800 border-b border-slate-700 px-6">
         <div className="flex space-x-1">
           {[
@@ -364,7 +351,6 @@ const DigitalTwinPlatform = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 overflow-auto">
         {activeTab === '3d-view' && (
           <div className="h-full relative">
@@ -676,7 +662,6 @@ const DigitalTwinPlatform = () => {
         )}
       </div>
 
-      {/* Status Bar */}
       <div className="bg-slate-800 border-t border-slate-700 px-6 py-2 text-xs text-slate-400 flex justify-between">
         <div>System Status: <span className="text-green-400">● Online</span> | API Latency: 85ms</div>
         <div>Last Updated: {new Date().toLocaleTimeString()} | v1.0.0</div>
