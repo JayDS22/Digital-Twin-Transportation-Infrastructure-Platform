@@ -8,7 +8,7 @@
 
 **A cutting-edge platform for visualizing and analyzing transportation infrastructure using LiDAR, AI, and interactive 3D digital twins**
 
-[Features](#-features) • [Architecture](#%EF%B8%8F-architecture) • [Quick Start](#-quick-start) • [Demo](#-live-demo) • [Documentation](#-documentation)
+[Features](#-features) • [Architecture](#%EF%B8%8F-architecture) • [Quick Start](#-quick-start) • [Documentation](#-documentation)
 
 </div>
 
